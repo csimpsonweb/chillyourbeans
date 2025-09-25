@@ -60,7 +60,7 @@ export default function CategoryDetailPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-white dark:bg-gray-900">
+      <div className="min-h-screen bg-white">
         <nav className="bg-black shadow-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-16">
@@ -87,7 +87,7 @@ export default function CategoryDetailPage() {
 
   if (error || !category) {
     return (
-      <div className="min-h-screen bg-white dark:bg-gray-900">
+      <div className="min-h-screen bg-white">
         <nav className="bg-black shadow-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-16">
@@ -106,10 +106,10 @@ export default function CategoryDetailPage() {
           </div>
         </nav>
         <div className="text-center py-20">
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded max-w-md mx-auto dark:bg-red-900 dark:border-red-700 dark:text-red-300">
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded max-w-md mx-auto">
             {error || 'Category not found'}
           </div>
-          <Link href="/categories" className="inline-block mt-4 text-gray-800 hover:text-gray-600 dark:text-gray-300">
+          <Link href="/categories" className="inline-block mt-4 text-gray-800 hover:text-gray-600">
             ← Back to Categories
           </Link>
         </div>
@@ -118,7 +118,7 @@ export default function CategoryDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900">
+    <div className="min-h-screen bg-white">
       <nav className="bg-black shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
@@ -140,15 +140,15 @@ export default function CategoryDetailPage() {
       <main className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
           <div className="mb-4">
-            <Link href="/categories" className="text-gray-800 hover:text-gray-600 dark:text-gray-300">
+            <Link href="/categories" className="text-gray-800 hover:text-gray-600">
               ← Back to Categories
             </Link>
           </div>
 
-          <h1 className="text-3xl font-bold text-white mb-2">
+          <h1 className="text-3xl font-bold text-black mb-2">
             {category.name}
           </h1>
-          <div className="flex items-center space-x-4 text-sm text-gray-600 dark:text-gray-400 mb-4">
+          <div className="flex items-center space-x-4 text-sm text-gray-600">
             <span>Level {category.level}</span>
             <span>Position: {category.position}</span>
             <span>{category.product_count} products</span>
@@ -157,7 +157,7 @@ export default function CategoryDetailPage() {
 
         {products.length === 0 ? (
           <div className="text-center py-12">
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-gray-600">
               No products found in this category.
             </p>
           </div>
@@ -165,9 +165,9 @@ export default function CategoryDetailPage() {
           <>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {products.map((product) => (
-                <div key={product.id} className="bg-black rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                <div key={product.id} className="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
                   <Link href={`/products/${product.sku}`}>
-                    <div className="aspect-square relative bg-gray-100 dark:bg-gray-700">
+                    <div className="aspect-square relative bg-gray-100">
                       <Image
                         src={getProductImage(product)}
                         alt={product.name}
@@ -177,13 +177,13 @@ export default function CategoryDetailPage() {
                       />
                     </div>
                     <div className="p-4">
-                      <h3 className="font-semibold text-white mb-2 line-clamp-2">
+                      <h3 className="font-semibold text-black mb-2 line-clamp-2">
                         {product.name}
                       </h3>
-                      <p className="text-lg font-bold text-gray-800 dark:text-gray-200">
+                      <p className="text-lg font-bold text-gray-800">
                         ${product.price.toFixed(2)}
                       </p>
-                      <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                      <p className="text-sm text-gray-500">
                         SKU: {product.sku}
                       </p>
                     </div>
@@ -197,24 +197,24 @@ export default function CategoryDetailPage() {
                 <button
                   onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                   disabled={currentPage === 1}
-                  className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
+                  className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-300"
                 >
                   Previous
                 </button>
-                <span className="text-gray-600 dark:text-gray-400">
+                <span className="text-gray-600">
                   Page {currentPage} of {totalPages}
                 </span>
                 <button
                   onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
                   disabled={currentPage === totalPages}
-                  className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
+                  className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-300"
                 >
                   Next
                 </button>
               </div>
             )}
 
-            <div className="mt-4 text-center text-sm text-gray-600 dark:text-gray-400">
+            <div className="mt-4 text-center text-sm text-gray-600">
               Showing {products.length} of {totalCount} products in {category.name}
             </div>
           </>

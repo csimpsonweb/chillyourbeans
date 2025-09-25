@@ -35,13 +35,13 @@ export default function CategoriesPage() {
 
     return (
       <div key={category.id} className={indentClass}>
-        <div className="bg-white dark:bg-black rounded-lg shadow-sm p-6 mb-4 hover:shadow-md transition-shadow">
+        <div className="bg-white">
           <div className="flex justify-between items-start">
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+              <h3 className="text-lg font-semibold text-black">
                 {category.name}
               </h3>
-              <div className="flex items-center space-x-4 text-sm text-gray-600 dark:text-gray-400">
+              <div className="flex items-center space-x-4 text-sm text-gray-600">
                 <span>Level {category.level}</span>
                 <span>Position: {category.position}</span>
                 <span>{category.product_count} products</span>
@@ -66,7 +66,7 @@ export default function CategoriesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900">
+    <div className="min-h-screen bg-white">
       <nav className="bg-black shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
@@ -87,8 +87,8 @@ export default function CategoriesPage() {
 
       <main className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Categories</h1>
-          <p className="text-gray-600 dark:text-gray-300">
+          <h1 className="text-3xl font-bold text-black">Categories</h1>
+          <p className="text-gray-600">
             Browse our product categories to find exactly what you&apos;re looking for.
           </p>
         </div>
@@ -99,7 +99,7 @@ export default function CategoriesPage() {
           </div>
         ) : error ? (
           <div className="text-center py-12">
-            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded dark:bg-red-900 dark:border-red-700 dark:text-red-300">
+            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
               {error}
             </div>
           </div>
@@ -109,13 +109,13 @@ export default function CategoriesPage() {
               categories.children_data.map(category => renderCategory(category))
             ) : (
               <div className="text-center py-12">
-                <p className="text-gray-600 dark:text-gray-400">No categories found.</p>
+                <p className="text-gray-600">No categories found.</p>
               </div>
             )}
           </div>
         ) : (
           <div className="text-center py-12">
-            <p className="text-gray-600 dark:text-gray-400">No categories available.</p>
+            <p className="text-gray-600">No categories available.</p>
           </div>
         )}
       </main>

@@ -64,7 +64,7 @@ export default function ProductsPage() {
   const totalPages = Math.ceil(totalCount / pageSize);
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900">
+    <div className="min-h-screen bg-white">
       <nav className="bg-black shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
@@ -85,7 +85,7 @@ export default function ProductsPage() {
 
       <main className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Products</h1>
+          <h1 className="text-3xl font-bold text-black mb-4">Products</h1>
 
           <form onSubmit={handleSearch} className="flex gap-2 max-w-md">
             <input
@@ -93,7 +93,7 @@ export default function ProductsPage() {
               placeholder="Search products..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+              className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent bg-white text-black"
             />
             <button
               type="submit"
@@ -110,21 +110,21 @@ export default function ProductsPage() {
           </div>
         ) : error ? (
           <div className="text-center py-12">
-            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded dark:bg-red-900 dark:border-red-700 dark:text-red-300">
+            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
               {error}
             </div>
           </div>
         ) : products.length === 0 ? (
           <div className="text-center py-12">
-            <p className="text-gray-600 dark:text-gray-400">No products found.</p>
+            <p className="text-gray-600">No products found.</p>
           </div>
         ) : (
           <>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {products.map((product) => (
-                <div key={product.id} className="bg-white dark:bg-black rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                <div key={product.id} className="bg-white">
                   <Link href={`/products/${product.sku}`}>
-                    <div className="aspect-square relative bg-gray-100 dark:bg-gray-700">
+                    <div className="aspect-square relative bg-gray-100">
                       <Image
                         src={getProductImage(product)}
                         alt={product.name}
@@ -134,13 +134,13 @@ export default function ProductsPage() {
                       />
                     </div>
                     <div className="p-4">
-                      <h3 className="font-semibold text-gray-900 dark:text-white mb-2 line-clamp-2">
+                      <h3 className="font-semibold text-black">
                         {product.name}
                       </h3>
-                      <p className="text-lg font-bold text-gray-800 dark:text-gray-200">
+                      <p className="text-lg font-bold text-gray-800">
                         ${product.price.toFixed(2)}
                       </p>
-                      <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                      <p className="text-sm text-gray-500">
                         SKU: {product.sku}
                       </p>
                     </div>
@@ -154,24 +154,24 @@ export default function ProductsPage() {
                 <button
                   onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                   disabled={currentPage === 1}
-                  className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
+                  className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-300"
                 >
                   Previous
                 </button>
-                <span className="text-gray-600 dark:text-gray-400">
+                <span className="text-gray-600">
                   Page {currentPage} of {totalPages}
                 </span>
                 <button
                   onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
                   disabled={currentPage === totalPages}
-                  className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
+                  className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-300"
                 >
                   Next
                 </button>
               </div>
             )}
 
-            <div className="mt-4 text-center text-sm text-gray-600 dark:text-gray-400">
+            <div className="mt-4 text-center text-sm text-gray-600">
               Showing {products.length} of {totalCount} products
             </div>
           </>
