@@ -133,16 +133,16 @@ export default function ProductDetailPage() {
 
             {/* Desktop logo (hidden on mobile) */}
             <div className="hidden md:block text-2xl font-bold text-white">
-              <Link href="/">ChillYourBeans</Link>
+              <Link href="/">CYB Coffee Co.</Link>
             </div>
 
             {/* Centered desktop navigation */}
             <div className="hidden md:flex space-x-8">
-              <Link href="/products" className="text-gray-300 hover:text-white transition-colors">
-                Products
+              <Link href="/coffee" className="text-gray-300 hover:text-white transition-colors">
+                Coffee
               </Link>
-              <Link href="/categories" className="text-gray-300 hover:text-white transition-colors">
-                Categories
+              <Link href="/equipment" className="text-gray-300 hover:text-white transition-colors">
+                Equipment
               </Link>
             </div>
 
@@ -180,18 +180,18 @@ export default function ProductDetailPage() {
             <div className="md:hidden">
               <div className="px-2 pt-2 pb-3 space-y-1">
                 <Link
-                  href="/products"
+                  href="/coffee"
                   className="text-gray-300 hover:text-white block px-3 py-2 text-base font-medium transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  Products
+                  Coffee
                 </Link>
                 <Link
-                  href="/categories"
+                  href="/equipment"
                   className="text-gray-300 hover:text-white block px-3 py-2 text-base font-medium transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  Categories
+                  Equipment
                 </Link>
               </div>
             </div>

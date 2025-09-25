@@ -180,7 +180,7 @@ class MagentoAPI {
   async getProductBySku(sku: string): Promise<MagentoProduct> {
     const item = await this.fetchAPI({
       action: 'product',
-      sku: encodeURIComponent(sku)
+      sku: sku
     }) as unknown as ApiProductItem;
 
     // Transform the simplified API response to match MagentoProduct interface
@@ -288,9 +288,9 @@ class MagentoAPI {
     search_criteria: SearchCriteria;
     total_count: number;
   }> {
-    // For now, return all products since we don't have category filtering yet
     const result = await this.fetchAPI({
       action: 'products',
+      category_id: categoryId.toString(),
       limit: limit.toString(),
       page: page.toString()
     });

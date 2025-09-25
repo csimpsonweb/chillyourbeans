@@ -26,16 +26,16 @@ export default function Home() {
 
             {/* Desktop logo (hidden on mobile) */}
             <div className="hidden md:block text-2xl font-bold text-white">
-              <Link href="/">ChillYourBeans</Link>
+              <Link href="/">CYB Coffee Co.</Link>
             </div>
 
             {/* Centered desktop navigation */}
             <div className="hidden md:flex space-x-8">
-              <Link href="/products" className="text-gray-300 hover:text-white transition-colors">
-                Products
+              <Link href="/coffee" className="text-gray-300 hover:text-white transition-colors">
+                Coffee
               </Link>
-              <Link href="/categories" className="text-gray-300 hover:text-white transition-colors">
-                Categories
+              <Link href="/equipment" className="text-gray-300 hover:text-white transition-colors">
+                Equipment
               </Link>
             </div>
 
@@ -73,18 +73,18 @@ export default function Home() {
             <div className="md:hidden">
               <div className="px-2 pt-2 pb-3 space-y-1">
                 <Link
-                  href="/products"
+                  href="/coffee"
                   className="text-gray-300 hover:text-white block px-3 py-2 text-base font-medium transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  Products
+                  Coffee
                 </Link>
                 <Link
-                  href="/categories"
+                  href="/equipment"
                   className="text-gray-300 hover:text-white block px-3 py-2 text-base font-medium transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  Categories
+                  Equipment
                 </Link>
               </div>
             </div>
@@ -92,49 +92,66 @@ export default function Home() {
         </div>
       </nav>
 
-      <main className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-black sm:text-6xl">
-            Welcome to ChillYourBeans
-          </h1>
-          <p className="mt-6 text-lg text-gray-600">
-            Your premium coffee destination powered by Next.js and Magento
-          </p>
+      <main className="relative">
+        {/* Hero Section with Background Image */}
+        <div
+          className="relative bg-gray-900 bg-cover bg-center bg-no-repeat flex items-center"
+          style={{
+            backgroundImage: 'url(/media/bg-hero-chillyourbeans.png)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            height: '50vh'
+          }}
+        >
+          {/* Light overlay for better text readability - temporarily removed to test image */}
+          {/* <div className="absolute inset-0 bg-black bg-opacity-20"></div> */}
 
-          <div className="mt-10 flex justify-center gap-6">
-            <Link
-              href="/products"
-              className="bg-black text-white px-8 py-3 rounded-lg font-medium hover:bg-gray-700 transition-colors"
-            >
-              Browse Products
-            </Link>
-            <Link
-              href="/categories"
-              className="bg-gray-200 text-black px-8 py-3 rounded-lg font-medium hover:bg-gray-300 transition-colors"
-            >
-              Shop by Category
-            </Link>
+          <div className="relative z-10 max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div className="text-center">
+              <h1 className="bg-black text-white p-4 text-4xl font-bold  sm:text-6xl">
+                  Powered by Next.js and Magento
+              </h1>
+
+              <div className="mt-10 flex justify-center gap-6">
+                <Link
+                  href="/coffee"
+                  className="bg-black text-white px-8 py-3 rounded-lg font-medium hover:bg-gray-700 transition-colors"
+                >
+                  Shop Coffee
+                </Link>
+                <Link
+                  href="/equipment"
+                  className="bg-white text-black px-8 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors"
+                >
+                  Shop Equipment
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="bg-white p-6 rounded-lg shadow-sm">
-            <h3 className="text-lg font-semibold text-black">Premium Coffee</h3>
-            <p className="text-gray-600 mt-2">
-              Sourced directly from the finest coffee farms around the world
-            </p>
-          </div>
-          <div className="bg-white p-6 rounded-lg shadow-sm">
-            <h3 className="text-lg font-semibold text-black">Fresh Roasted</h3>
-            <p className="text-gray-600 mt-2">
-              Roasted to perfection and delivered fresh to your doorstep
-            </p>
-          </div>
-          <div className="bg-white p-6 rounded-lg shadow-sm">
-            <h3 className="text-lg font-semibold text-black">Expert Curation</h3>
-            <p className="text-gray-600 mt-2">
-              Hand-selected by our coffee experts for exceptional quality
-            </p>
+        {/* Feature Cards Section */}
+        <div className="max-w-7xl mx-auto py-20 px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <h3 className="text-lg font-semibold text-black">Premium Coffee</h3>
+              <p className="text-gray-600 mt-2">
+                Sourced directly from the finest coffee farms around the world
+              </p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <h3 className="text-lg font-semibold text-black">Fresh Roasted</h3>
+              <p className="text-gray-600 mt-2">
+                Roasted to perfection and delivered fresh to your doorstep
+              </p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <h3 className="text-lg font-semibold text-black">Expert Curation</h3>
+              <p className="text-gray-600 mt-2">
+                Hand-selected by our coffee experts for exceptional quality
+              </p>
+            </div>
           </div>
         </div>
       </main>
