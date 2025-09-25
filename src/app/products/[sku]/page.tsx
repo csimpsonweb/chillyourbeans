@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { magentoAPI } from '@/lib/magento-api';
 import type { MagentoProduct } from '@/lib/magento-api';
+import Footer from '@/components/Footer';
 
 export default function ProductDetailPage() {
   const params = useParams();
@@ -14,6 +15,7 @@ export default function ProductDetailPage() {
   const [product, setProduct] = useState<MagentoProduct | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const fetchProduct = useCallback(async () => {
     if (!sku) return;
@@ -59,14 +61,14 @@ export default function ProductDetailPage() {
         <nav className="bg-black shadow-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-16">
-              <Link href="/" className="text-2xl font-bold text-black">
+              <Link href="/" className="text-2xl font-bold text-white">
                 ChillYourBeans
               </Link>
               <div className="flex space-x-4">
-                <Link href="/products" className="text-gray-300 hover:text-black">
+                <Link href="/products" className="text-gray-300 hover:text-white">
                   Products
                 </Link>
-                <Link href="/categories" className="text-gray-300 hover:text-black">
+                <Link href="/categories" className="text-gray-300 hover:text-white">
                   Categories
                 </Link>
               </div>
@@ -86,14 +88,14 @@ export default function ProductDetailPage() {
         <nav className="bg-black shadow-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-16">
-              <Link href="/" className="text-2xl font-bold text-black">
+              <Link href="/" className="text-2xl font-bold text-white">
                 ChillYourBeans
               </Link>
               <div className="flex space-x-4">
-                <Link href="/products" className="text-gray-300 hover:text-black">
+                <Link href="/products" className="text-gray-300 hover:text-white">
                   Products
                 </Link>
-                <Link href="/categories" className="text-gray-300 hover:text-black">
+                <Link href="/categories" className="text-gray-300 hover:text-white">
                   Categories
                 </Link>
               </div>
@@ -117,18 +119,83 @@ export default function ProductDetailPage() {
       <nav className="bg-black shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <Link href="/" className="text-2xl font-bold text-black">
-              ChillYourBeans
-            </Link>
-            <div className="flex space-x-4">
-              <Link href="/products" className="text-gray-300 hover:text-black">
+            {/* Mobile burger menu button (replaces logo on mobile) */}
+            <div className="md:hidden">
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="text-white hover:text-gray-300 focus:outline-none focus:text-gray-300"
+              >
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Desktop logo (hidden on mobile) */}
+            <div className="hidden md:block text-2xl font-bold text-white">
+              <Link href="/">ChillYourBeans</Link>
+            </div>
+
+            {/* Centered desktop navigation */}
+            <div className="hidden md:flex space-x-8">
+              <Link href="/products" className="text-gray-300 hover:text-white transition-colors">
                 Products
               </Link>
-              <Link href="/categories" className="text-gray-300 hover:text-black">
+              <Link href="/categories" className="text-gray-300 hover:text-white transition-colors">
                 Categories
               </Link>
             </div>
+
+            {/* Right side icons */}
+            <div className="flex items-center space-x-4">
+              {/* Search icon */}
+              <button className="text-white hover:text-gray-300 transition-colors">
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m21 21-6-6m2-5a7 7 0 1 1-14 0 7 7 0 0 1 14 0z" />
+                </svg>
+              </button>
+
+              {/* Account icon */}
+              <button className="text-white hover:text-gray-300 transition-colors">
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+              </button>
+
+              {/* Cart/Basket icon - Updated to better basket design */}
+              <button className="text-white hover:text-gray-300 transition-colors relative">
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3a2 2 0 012-2h4a2 2 0 012 2v4m-6 0V7a2 2 0 012-2h4a2 2 0 012 2v0M8 7v10a2 2 0 002 2h8a2 2 0 002-2V7M8 7h12" />
+                </svg>
+                {/* Cart count badge */}
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  0
+                </span>
+              </button>
+            </div>
           </div>
+
+          {/* Mobile menu dropdown */}
+          {mobileMenuOpen && (
+            <div className="md:hidden">
+              <div className="px-2 pt-2 pb-3 space-y-1">
+                <Link
+                  href="/products"
+                  className="text-gray-300 hover:text-white block px-3 py-2 text-base font-medium transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Products
+                </Link>
+                <Link
+                  href="/categories"
+                  className="text-gray-300 hover:text-white block px-3 py-2 text-base font-medium transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Categories
+                </Link>
+              </div>
+            </div>
+          )}
         </div>
       </nav>
 
@@ -154,7 +221,7 @@ export default function ProductDetailPage() {
 
             <div className="space-y-6">
               <div>
-                <h1 className="text-3xl font-bold text-black mb-2">
+                <h1 className="text-3xl font-bold text-white mb-2">
                   {product.name}
                 </h1>
                 <p className="text-2xl font-bold text-gray-800">
@@ -167,7 +234,7 @@ export default function ProductDetailPage() {
 
               {getShortDescription() && (
                 <div>
-                  <h3 className="text-lg font-semibold text-black mb-2">
+                  <h3 className="text-lg font-semibold text-white mb-2">
                     Summary
                   </h3>
                   <p className="text-gray-600">
@@ -177,17 +244,17 @@ export default function ProductDetailPage() {
               )}
 
               <div>
-                <h3 className="text-lg font-semibold text-black mb-2">
+                <h3 className="text-lg font-semibold text-white mb-2">
                   Product Details
                 </h3>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
                     <span className="text-gray-600">Type:</span>
-                    <span className="text-black capitalize">{product.type_id}</span>
+                    <span className="text-white capitalize">{product.type_id}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600">Weight:</span>
-                    <span className="text-black">{product.weight} lbs</span>
+                    <span className="text-white">{product.weight} lbs</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600">Status:</span>
@@ -200,7 +267,7 @@ export default function ProductDetailPage() {
 
               <div className="space-y-3">
                 <button
-                  className="w-full bg-black text-black py-3 px-6 rounded-lg font-medium hover:bg-gray-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-black text-white py-3 px-6 rounded-lg font-medium hover:bg-gray-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   disabled={product.status !== 1}
                 >
                   {product.status === 1 ? 'Add to Cart' : 'Out of Stock'}
@@ -213,16 +280,18 @@ export default function ProductDetailPage() {
           </div>
 
           <div className="border-t border-gray-200">
-            <h3 className="text-xl font-bold text-black mb-4">
+            <h3 className="text-xl font-bold text-white mb-4">
               Description
             </h3>
-            <div
-              className="prose prose-black"
-              dangerouslySetInnerHTML={{ __html: getDescription() }}
-            />
+            <div className="prose prose-black max-w-none">
+              <p className="text-gray-700 leading-relaxed">
+                {getDescription()}
+              </p>
+            </div>
           </div>
         </div>
       </main>
+      <Footer />
     </div>
   );
 }

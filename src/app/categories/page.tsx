@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { magentoAPI } from '@/lib/magento-api';
 import type { Category } from '@/types/product';
+import Footer from '@/components/Footer';
 
 export default function CategoriesPage() {
   const [categories, setCategories] = useState<Category | null>(null);
@@ -120,6 +121,7 @@ export default function CategoriesPage() {
           </div>
         )}
       </main>
+      <Footer />
     </div>
   );
 }
