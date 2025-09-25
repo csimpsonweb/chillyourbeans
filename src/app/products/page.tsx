@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { magentoAPI } from '@/lib/magento-api';
 import type { MagentoProduct } from '@/lib/magento-api';
+import Footer from '@/components/Footer';
 
 export default function ProductsPage() {
   const [products, setProducts] = useState<MagentoProduct[]>([]);
@@ -13,6 +14,7 @@ export default function ProductsPage() {
   const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pageSize = 12;
 
   const fetchProducts = useCallback(async () => {
@@ -64,28 +66,93 @@ export default function ProductsPage() {
   const totalPages = Math.ceil(totalCount / pageSize);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <nav className="bg-white dark:bg-gray-800 shadow-sm">
+    <div className="min-h-screen bg-white">
+      <nav className="bg-black shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <Link href="/" className="text-2xl font-bold text-gray-900 dark:text-white">
-              ChillYourBeans
-            </Link>
-            <div className="flex space-x-4">
-              <Link href="/products" className="text-blue-600 font-medium dark:text-blue-400">
-                Products
+            {/* Mobile burger menu button (replaces logo on mobile) */}
+            <div className="md:hidden">
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="text-white hover:text-gray-300 focus:outline-none focus:text-gray-300"
+              >
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Desktop logo (hidden on mobile) */}
+            <div className="hidden md:block text-2xl font-bold text-white">
+              <Link href="/">CYB Coffee Co.</Link>
+            </div>
+
+            {/* Centered desktop navigation */}
+            <div className="hidden md:flex space-x-8">
+              <Link href="/coffee" className="text-gray-300 hover:text-white transition-colors">
+                Coffee
               </Link>
-              <Link href="/categories" className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">
-                Categories
+              <Link href="/equipment" className="text-gray-300 hover:text-white transition-colors">
+                Equipment
               </Link>
             </div>
+
+            {/* Right side icons */}
+            <div className="flex items-center space-x-4">
+              {/* Search icon */}
+              <button className="text-white hover:text-gray-300 transition-colors">
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m21 21-6-6m2-5a7 7 0 1 1-14 0 7 7 0 0 1 14 0z" />
+                </svg>
+              </button>
+
+              {/* Account icon */}
+              <button className="text-white hover:text-gray-300 transition-colors">
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+              </button>
+
+              {/* Cart/Basket icon */}
+              <button className="text-white hover:text-gray-300 transition-colors relative">
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3a2 2 0 012-2h4a2 2 0 012 2v4m-6 0V7a2 2 0 012-2h4a2 2 0 012 2v0M8 7v10a2 2 0 002 2h8a2 2 0 002-2V7M8 7h12" />
+                </svg>
+                {/* Cart count badge */}
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  0
+                </span>
+              </button>
+            </div>
           </div>
+
+          {/* Mobile menu dropdown */}
+          {mobileMenuOpen && (
+            <div className="md:hidden">
+              <div className="px-2 pt-2 pb-3 space-y-1">
+                <Link
+                  href="/coffee"
+                  className="text-gray-300 hover:text-white block px-3 py-2 text-base font-medium transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Coffee
+                </Link>
+                <Link
+                  href="/equipment"
+                  className="text-gray-300 hover:text-white block px-3 py-2 text-base font-medium transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Equipment
+                </Link>
+              </div>
+            </div>
+          )}
         </div>
       </nav>
 
       <main className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Products</h1>
+          <h1 className="text-3xl font-bold text-black mb-4">Products</h1>
 
           <form onSubmit={handleSearch} className="flex gap-2 max-w-md">
             <input
@@ -93,11 +160,11 @@ export default function ProductsPage() {
               placeholder="Search products..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+              className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent bg-white text-black"
             />
             <button
               type="submit"
-              className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              className="px-6 py-2 bg-black text-white rounded-lg hover:bg-gray-700 transition-colors"
             >
               Search
             </button>
@@ -110,21 +177,21 @@ export default function ProductsPage() {
           </div>
         ) : error ? (
           <div className="text-center py-12">
-            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded dark:bg-red-900 dark:border-red-700 dark:text-red-300">
+            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
               {error}
             </div>
           </div>
         ) : products.length === 0 ? (
           <div className="text-center py-12">
-            <p className="text-gray-600 dark:text-gray-400">No products found.</p>
+            <p className="text-gray-600">No products found.</p>
           </div>
         ) : (
           <>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {products.map((product) => (
-                <div key={product.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                <div key={product.id} className="bg-white">
                   <Link href={`/products/${product.sku}`}>
-                    <div className="aspect-square relative bg-gray-100 dark:bg-gray-700">
+                    <div className="aspect-square relative bg-gray-100">
                       <Image
                         src={getProductImage(product)}
                         alt={product.name}
@@ -134,13 +201,13 @@ export default function ProductsPage() {
                       />
                     </div>
                     <div className="p-4">
-                      <h3 className="font-semibold text-gray-900 dark:text-white mb-2 line-clamp-2">
+                      <h3 className="font-semibold text-black">
                         {product.name}
                       </h3>
-                      <p className="text-lg font-bold text-blue-600 dark:text-blue-400">
+                      <p className="text-lg font-bold text-gray-800">
                         ${product.price.toFixed(2)}
                       </p>
-                      <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                      <p className="text-sm text-gray-500">
                         SKU: {product.sku}
                       </p>
                     </div>
@@ -154,29 +221,30 @@ export default function ProductsPage() {
                 <button
                   onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                   disabled={currentPage === 1}
-                  className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
+                  className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-300"
                 >
                   Previous
                 </button>
-                <span className="text-gray-600 dark:text-gray-400">
+                <span className="text-gray-600">
                   Page {currentPage} of {totalPages}
                 </span>
                 <button
                   onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
                   disabled={currentPage === totalPages}
-                  className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
+                  className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-300"
                 >
                   Next
                 </button>
               </div>
             )}
 
-            <div className="mt-4 text-center text-sm text-gray-600 dark:text-gray-400">
+            <div className="mt-4 text-center text-sm text-gray-600">
               Showing {products.length} of {totalCount} products
             </div>
           </>
         )}
       </main>
+      <Footer />
     </div>
   );
 }

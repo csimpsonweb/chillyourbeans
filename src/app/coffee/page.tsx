@@ -1,70 +1,46 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { magentoAPI } from '@/lib/magento-api';
-import type { Category } from '@/types/product';
+import type { MagentoProduct } from '@/lib/magento-api';
 import Footer from '@/components/Footer';
 
-export default function CategoriesPage() {
-  const [categories, setCategories] = useState<Category | null>(null);
+export default function CoffeePage() {
+  const [products, setProducts] = useState<MagentoProduct[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  useEffect(() => {
-    fetchCategories();
-  }, []);
-
-  const fetchCategories = async () => {
+  const fetchCoffeeProducts = useCallback(async () => {
     try {
       setLoading(true);
-      const categoryData = await magentoAPI.getCategories();
-      setCategories(categoryData);
+      // Fetch products from Coffee category (category ID: 3)
+      const result = await magentoAPI.getProductsByCategory(3, 50, 1);
+
+      setProducts(result.items);
       setError(null);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to fetch categories');
-      setCategories(null);
+      setError(err instanceof Error ? err.message : 'Failed to fetch coffee products');
+      setProducts([]);
     } finally {
       setLoading(false);
     }
+  }, []);
+
+  useEffect(() => {
+    fetchCoffeeProducts();
+  }, [fetchCoffeeProducts]);
+
+  const getCustomAttribute = (product: MagentoProduct, attributeCode: string): string => {
+    const attr = product.custom_attributes?.find(a => a.attribute_code === attributeCode);
+    return attr ? String(attr.value) : '';
   };
 
-  const renderCategory = (category: Category, level = 0) => {
-    if (!category.is_active) return null;
-
-    const indentClass = level > 0 ? `ml-${level * 4}` : '';
-
-    return (
-      <div key={category.id} className={indentClass}>
-        <div className="bg-white">
-          <div className="flex justify-between items-start">
-            <div>
-              <h3 className="text-lg font-semibold text-black">
-                {category.name}
-              </h3>
-              <div className="flex items-center space-x-4 text-sm text-gray-600">
-                <span>Level {category.level}</span>
-                <span>Position: {category.position}</span>
-                <span>{category.product_count} products</span>
-              </div>
-            </div>
-            <Link
-              href={`/categories/${category.id}`}
-              className="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors"
-            >
-              View Products
-            </Link>
-          </div>
-        </div>
-
-        {category.children_data && category.children_data.length > 0 && (
-          <div className="ml-4">
-            {category.children_data.map(child => renderCategory(child, level + 1))}
-          </div>
-        )}
-      </div>
-    );
+  const getProductImage = (product: MagentoProduct): string => {
+    const imageAttr = getCustomAttribute(product, 'image');
+    return magentoAPI.getImageUrl(imageAttr) || '/placeholder-product.jpg';
   };
 
   return (
@@ -91,7 +67,7 @@ export default function CategoriesPage() {
 
             {/* Centered desktop navigation */}
             <div className="hidden md:flex space-x-8">
-              <Link href="/coffee" className="text-gray-300 hover:text-white transition-colors">
+              <Link href="/coffee" className="text-white font-medium transition-colors">
                 Coffee
               </Link>
               <Link href="/equipment" className="text-gray-300 hover:text-white transition-colors">
@@ -134,7 +110,7 @@ export default function CategoriesPage() {
               <div className="px-2 pt-2 pb-3 space-y-1">
                 <Link
                   href="/coffee"
-                  className="text-gray-300 hover:text-white block px-3 py-2 text-base font-medium transition-colors"
+                  className="text-white font-medium block px-3 py-2 text-base transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Coffee
@@ -154,9 +130,9 @@ export default function CategoriesPage() {
 
       <main className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-black">Categories</h1>
+          <h1 className="text-3xl font-bold text-black mb-4">Coffee</h1>
           <p className="text-gray-600">
-            Browse our product categories to find exactly what you&apos;re looking for.
+            Discover our premium selection of coffee beans, sourced directly from the finest farms around the world.
           </p>
         </div>
 
@@ -170,19 +146,38 @@ export default function CategoriesPage() {
               {error}
             </div>
           </div>
-        ) : categories ? (
-          <div className="space-y-4">
-            {categories.children_data && categories.children_data.length > 0 ? (
-              categories.children_data.map(category => renderCategory(category))
-            ) : (
-              <div className="text-center py-12">
-                <p className="text-gray-600">No categories found.</p>
-              </div>
-            )}
+        ) : products.length === 0 ? (
+          <div className="text-center py-12">
+            <p className="text-gray-600">No coffee products found.</p>
           </div>
         ) : (
-          <div className="text-center py-12">
-            <p className="text-gray-600">No categories available.</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {products.map((product) => (
+              <div key={product.id} className="bg-white">
+                <Link href={`/products/${product.sku}`}>
+                  <div className="aspect-square relative bg-gray-100">
+                    <Image
+                      src={getProductImage(product)}
+                      alt={product.name}
+                      fill
+                      className="object-cover hover:scale-105 transition-transform"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                    />
+                  </div>
+                  <div className="p-4">
+                    <h3 className="font-semibold text-black">
+                      {product.name}
+                    </h3>
+                    <p className="text-lg font-bold text-gray-800">
+                      ${product.price.toFixed(2)}
+                    </p>
+                    <p className="text-sm text-gray-500">
+                      SKU: {product.sku}
+                    </p>
+                  </div>
+                </Link>
+              </div>
+            ))}
           </div>
         )}
       </main>
