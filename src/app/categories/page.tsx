@@ -9,6 +9,7 @@ export default function CategoriesPage() {
   const [categories, setCategories] = useState<Category | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     fetchCategories();

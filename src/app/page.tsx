@@ -1,23 +1,93 @@
+'use client';
+
 import Link from "next/link";
+import { useState } from "react";
 
 export default function Home() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
     <div className="font-sans min-h-screen bg-white">
       <nav className="bg-black shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <div className="text-2xl font-bold text-white">
-              ChillYourBeans
+            {/* Mobile burger menu button (replaces logo on mobile) */}
+            <div className="md:hidden">
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="text-white hover:text-gray-300 focus:outline-none focus:text-gray-300"
+              >
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              </button>
             </div>
-            <div className="flex space-x-4">
-              <Link href="/products" className="text-gray-300 hover:text-white">
+
+            {/* Desktop logo (hidden on mobile) */}
+            <div className="hidden md:block text-2xl font-bold text-white">
+              <Link href="/">ChillYourBeans</Link>
+            </div>
+
+            {/* Centered desktop navigation */}
+            <div className="hidden md:flex space-x-8">
+              <Link href="/products" className="text-gray-300 hover:text-white transition-colors">
                 Products
               </Link>
-              <Link href="/categories" className="text-gray-300 hover:text-white">
+              <Link href="/categories" className="text-gray-300 hover:text-white transition-colors">
                 Categories
               </Link>
             </div>
+
+            {/* Right side icons */}
+            <div className="flex items-center space-x-4">
+              {/* Search icon */}
+              <button className="text-white hover:text-gray-300 transition-colors">
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m21 21-6-6m2-5a7 7 0 1 1-14 0 7 7 0 0 1 14 0z" />
+                </svg>
+              </button>
+
+              {/* Account icon */}
+              <button className="text-white hover:text-gray-300 transition-colors">
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+              </button>
+
+              {/* Cart/Basket icon */}
+              <button className="text-white hover:text-gray-300 transition-colors relative">
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17M17 13v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6m8 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01" />
+                </svg>
+                {/* Cart count badge */}
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  0
+                </span>
+              </button>
+            </div>
           </div>
+
+          {/* Mobile menu dropdown */}
+          {mobileMenuOpen && (
+            <div className="md:hidden">
+              <div className="px-2 pt-2 pb-3 space-y-1">
+                <Link
+                  href="/products"
+                  className="text-gray-300 hover:text-white block px-3 py-2 text-base font-medium transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Products
+                </Link>
+                <Link
+                  href="/categories"
+                  className="text-gray-300 hover:text-white block px-3 py-2 text-base font-medium transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Categories
+                </Link>
+              </div>
+            </div>
+          )}
         </div>
       </nav>
 
