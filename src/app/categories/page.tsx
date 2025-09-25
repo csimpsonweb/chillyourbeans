@@ -35,7 +35,7 @@ export default function CategoriesPage() {
 
     return (
       <div key={category.id} className={indentClass}>
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 mb-4 hover:shadow-md transition-shadow">
+        <div className="bg-white dark:bg-black rounded-lg shadow-sm p-6 mb-4 hover:shadow-md transition-shadow">
           <div className="flex justify-between items-start">
             <div>
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
@@ -49,7 +49,7 @@ export default function CategoriesPage() {
             </div>
             <Link
               href={`/categories/${category.id}`}
-              className="bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors"
+              className="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors"
             >
               View Products
             </Link>
@@ -67,7 +67,7 @@ export default function CategoriesPage() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
-      <nav className="bg-gray-800 dark:bg-gray-900 shadow-sm">
+      <nav className="bg-black shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <Link href="/" className="text-2xl font-bold text-white">

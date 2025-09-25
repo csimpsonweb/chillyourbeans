@@ -56,7 +56,7 @@ export default function ProductDetailPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-white dark:bg-gray-900">
-        <nav className="bg-gray-800 dark:bg-gray-900 shadow-sm">
+        <nav className="bg-black shadow-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-16">
               <Link href="/" className="text-2xl font-bold text-white">
@@ -83,7 +83,7 @@ export default function ProductDetailPage() {
   if (error || !product) {
     return (
       <div className="min-h-screen bg-white dark:bg-gray-900">
-        <nav className="bg-gray-800 dark:bg-gray-900 shadow-sm">
+        <nav className="bg-black shadow-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-16">
               <Link href="/" className="text-2xl font-bold text-white">
@@ -114,7 +114,7 @@ export default function ProductDetailPage() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
-      <nav className="bg-gray-800 dark:bg-gray-900 shadow-sm">
+      <nav className="bg-black shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <Link href="/" className="text-2xl font-bold text-white">
@@ -139,7 +139,7 @@ export default function ProductDetailPage() {
           </Link>
         </div>
 
-        <div className="bg-gray-800 dark:bg-gray-900 rounded-lg shadow-sm overflow-hidden">
+        <div className="bg-black rounded-lg shadow-sm overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8">
             <div className="aspect-square relative bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden">
               <Image
@@ -200,7 +200,7 @@ export default function ProductDetailPage() {
 
               <div className="space-y-3">
                 <button
-                  className="w-full bg-gray-800 text-white py-3 px-6 rounded-lg font-medium hover:bg-gray-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-black text-white py-3 px-6 rounded-lg font-medium hover:bg-gray-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   disabled={product.status !== 1}
                 >
                   {product.status === 1 ? 'Add to Cart' : 'Out of Stock'}

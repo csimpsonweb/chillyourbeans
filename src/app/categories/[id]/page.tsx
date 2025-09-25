@@ -61,7 +61,7 @@ export default function CategoryDetailPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-white dark:bg-gray-900">
-        <nav className="bg-gray-800 dark:bg-gray-900 shadow-sm">
+        <nav className="bg-black shadow-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-16">
               <Link href="/" className="text-2xl font-bold text-white">
@@ -88,7 +88,7 @@ export default function CategoryDetailPage() {
   if (error || !category) {
     return (
       <div className="min-h-screen bg-white dark:bg-gray-900">
-        <nav className="bg-gray-800 dark:bg-gray-900 shadow-sm">
+        <nav className="bg-black shadow-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-16">
               <Link href="/" className="text-2xl font-bold text-white">
@@ -119,7 +119,7 @@ export default function CategoryDetailPage() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
-      <nav className="bg-gray-800 dark:bg-gray-900 shadow-sm">
+      <nav className="bg-black shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <Link href="/" className="text-2xl font-bold text-white">
@@ -165,7 +165,7 @@ export default function CategoryDetailPage() {
           <>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {products.map((product) => (
-                <div key={product.id} className="bg-gray-800 dark:bg-gray-900 rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                <div key={product.id} className="bg-black rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
                   <Link href={`/products/${product.sku}`}>
                     <div className="aspect-square relative bg-gray-100 dark:bg-gray-700">
                       <Image
