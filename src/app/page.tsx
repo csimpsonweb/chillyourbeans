@@ -2,18 +2,18 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="font-sans min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
-      <nav className="bg-white dark:bg-gray-900 shadow-sm">
+    <div className="font-sans min-h-screen bg-white dark:bg-gray-900">
+      <nav className="bg-gray-800 dark:bg-gray-900 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <div className="text-2xl font-bold text-gray-900 dark:text-white">
+            <div className="text-2xl font-bold text-white">
               ChillYourBeans
             </div>
             <div className="flex space-x-4">
-              <Link href="/products" className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">
+              <Link href="/products" className="text-gray-300 hover:text-white">
                 Products
               </Link>
-              <Link href="/categories" className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">
+              <Link href="/categories" className="text-gray-300 hover:text-white">
                 Categories
               </Link>
             </div>
@@ -33,7 +33,7 @@ export default function Home() {
           <div className="mt-10 flex justify-center gap-6">
             <Link
               href="/products"
-              className="bg-blue-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors"
+              className="bg-gray-800 text-white px-8 py-3 rounded-lg font-medium hover:bg-gray-700 transition-colors"
             >
               Browse Products
             </Link>

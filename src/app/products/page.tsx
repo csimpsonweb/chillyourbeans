@@ -64,18 +64,18 @@ export default function ProductsPage() {
   const totalPages = Math.ceil(totalCount / pageSize);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <nav className="bg-white dark:bg-gray-800 shadow-sm">
+    <div className="min-h-screen bg-white dark:bg-gray-900">
+      <nav className="bg-gray-800 dark:bg-gray-900 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <Link href="/" className="text-2xl font-bold text-gray-900 dark:text-white">
+            <Link href="/" className="text-2xl font-bold text-white">
               ChillYourBeans
             </Link>
             <div className="flex space-x-4">
-              <Link href="/products" className="text-blue-600 font-medium dark:text-blue-400">
+              <Link href="/products" className="text-white font-medium">
                 Products
               </Link>
-              <Link href="/categories" className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">
+              <Link href="/categories" className="text-gray-300 hover:text-white">
                 Categories
               </Link>
             </div>
@@ -93,11 +93,11 @@ export default function ProductsPage() {
               placeholder="Search products..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+              className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white"
             />
             <button
               type="submit"
-              className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              className="px-6 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors"
             >
               Search
             </button>
@@ -137,7 +137,7 @@ export default function ProductsPage() {
                       <h3 className="font-semibold text-gray-900 dark:text-white mb-2 line-clamp-2">
                         {product.name}
                       </h3>
-                      <p className="text-lg font-bold text-blue-600 dark:text-blue-400">
+                      <p className="text-lg font-bold text-gray-800 dark:text-gray-200">
                         ${product.price.toFixed(2)}
                       </p>
                       <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
