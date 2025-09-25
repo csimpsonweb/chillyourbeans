@@ -191,7 +191,7 @@ export default function ProductDetailPage() {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600">Status:</span>
-                    <span className={`${product.status === 1 ? 'text-green-600
+                    <span className={`${product.status === 1 ? 'text-green-600' : 'text-red-600'}`}>
                       {product.status === 1 ? 'In Stock' : 'Out of Stock'}
                     </span>
                   </div>
